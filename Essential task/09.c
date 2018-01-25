@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 // プロトタイプ宣言
-void swap(int, int);
+void swap(int *, int *);
 
 int main(void)
 {
