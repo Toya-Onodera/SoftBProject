@@ -19,7 +19,7 @@ int main(void)
 	puts("/*************** ボウリングのスコア計算 ***************/");
 	puts("「0」, 「1」, 「2」, 「3」, 「4」, 「5」, 「6」, 「7」, 「8」, 「9」, 「10」");
 	puts("「10」は「/」(スペア)と「X」(ストライク)を意味します。\n");
-	
+
 	// 9投目まで
 	for (int i = 0; i <= 17; i++)
 	{
@@ -35,7 +35,7 @@ int main(void)
 			// 次のフレームはスキップ
 			i++;
 		}
-		
+
 		// スペアの場合
 		else if (i % 2 == 1 && (inputScoreList[i - 1] + inputScoreList[i] == 10))
 		{
@@ -75,13 +75,13 @@ int main(void)
 		}
 
 		// スペアの場合
-		else if (i == 19 && (inputScoreList[i - 1] + inputScoreList[i] == 10))
+		else if (inputScoreList[18] != 10 && i == 19 && (inputScoreList[i - 1] + inputScoreList[i] == 10))
 		{
 			bowlingScoreList[i] = '/';
 		}
 
 		// 2投目で合計10を超える場合
-		else if (i == 19 && inputScoreList[i - 1] + inputScoreList[i] > 10)
+		else if (inputScoreList[18] != 10 && i == 19 && inputScoreList[i - 1] + inputScoreList[i] > 10)
 		{
 			puts("もう一度入力してください。");
 			i--;
@@ -108,14 +108,8 @@ int main(void)
 			printf("10フレームの3投目：");
 			scanf("%d", &inputScoreList[20]);
 
-			// ストライクの場合
-			if (inputScoreList[20] == 10)
-			{
-				bowlingScoreList[20] = 'X';
-			}
-
 			// スペアの場合
-			else if (inputScoreList[18] == 10 && (inputScoreList[19] + inputScoreList[20] == 10))
+			if (inputScoreList[18] == 10 && (inputScoreList[19] + inputScoreList[20] == 10))
 			{
 				bowlingScoreList[20] = '/';
 			}
@@ -125,6 +119,12 @@ int main(void)
 			{
 				puts("もう一度入力してください。");
 				continue;
+			}
+
+			// ストライクの場合
+			else if (inputScoreList[20] == 10)
+			{
+				bowlingScoreList[20] = 'X';
 			}
 
 			// ストライク以外
@@ -139,7 +139,9 @@ int main(void)
 				continue;
 			}
 
-		} while (0);
+			break;
+
+		} while (1);
 	}
 
 	// 実際にスコアを計算する
@@ -150,7 +152,6 @@ int main(void)
 		if (bowlingScoreList[i] != '\0')
 		{
 			totalScore += bowlingScoreCalc(i, 1);
-			printf("%d\n", totalScore);
 		}
 	}
 
@@ -174,7 +175,22 @@ int main(void)
 
 			else
 			{
-				printf("%3c", bowlingScoreList[j]);
+				if (j != 20 && inputScoreList[j] == 0 && j % 2 == 0
+					|| j == 19 && bowlingScoreList[18] == 'X' && inputScoreList[19] == 0)
+				{
+					printf("  G");
+				}
+
+				else if (j == 20 && inputScoreList[20] == 0
+					|| inputScoreList[j] == 0 && j % 2 == 1)
+				{
+					printf(" --");
+				}
+					
+				else
+				{
+					printf("%3c", bowlingScoreList[j]);
+				}
 			}
 		}
 
@@ -216,7 +232,7 @@ int bowlingScoreCalc(int n, int count)
 			// ストライク 3回目以降
 			else
 			{
-				return bowlingScoreCalc(n + 1, count + 1) + bowlingScoreCalc(n + 2, count + 1);
+				return 10;
 			}
 		}
 
