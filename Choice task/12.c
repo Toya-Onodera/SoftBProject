@@ -1,52 +1,47 @@
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
-
-int AsciiCast(char);
 
 int main(void)
 {
-	// ƒ{ƒEƒŠƒ“ƒO‚ÌƒXƒRƒA‚ğŠi”[‚·‚éŠÖ”
-	// •¶š—ñ‚ÅŠi”[‚³‚¹‚é
-	// 0 ~ 9, / (ƒXƒyƒA), X(ƒXƒgƒ‰ƒCƒN)
+	// ãƒœã‚¦ãƒªãƒ³ã‚°ã®ã‚¹ã‚³ã‚¢ã‚’æ ¼ç´ã™ã‚‹é–¢æ•°
+	// æ–‡å­—åˆ—ã§æ ¼ç´ã•ã›ã‚‹
+	// 0 ~ 9, / (ã‚¹ãƒšã‚¢), X(ã‚¹ãƒˆãƒ©ã‚¤ã‚¯)
 	char bowlingScoreList[21] = { '\0' };
 	int inputScoreList[21] = { 0 };
 
-	puts("/*************** ƒ{ƒEƒŠƒ“ƒO‚ÌƒXƒRƒAŒvZ ***************/");
-	puts("u0v, u1v, u2v, u3v, u4v, u5v, u6v, u7v, u8v, u9v, u10v");
-	puts("u10v‚Íu/v(ƒXƒyƒA)‚ÆuXv(ƒXƒgƒ‰ƒCƒN)‚ğˆÓ–¡‚µ‚Ü‚·B\n");
+	puts("/*************** ãƒœã‚¦ãƒªãƒ³ã‚°ã®ã‚¹ã‚³ã‚¢è¨ˆç®— ***************/");
+	puts("ã€Œ0ã€, ã€Œ1ã€, ã€Œ2ã€, ã€Œ3ã€, ã€Œ4ã€, ã€Œ5ã€, ã€Œ6ã€, ã€Œ7ã€, ã€Œ8ã€, ã€Œ9ã€, ã€Œ10ã€");
+	puts("ã€Œ10ã€ã¯ã€Œ/ã€(ã‚¹ãƒšã‚¢)ã¨ã€ŒXã€(ã‚¹ãƒˆãƒ©ã‚¤ã‚¯)ã‚’æ„å‘³ã—ã¾ã™ã€‚\n");
 	
-	// 9“Š–Ú‚Ü‚Å
+	// 9æŠ•ç›®ã¾ã§
 	for (int i = 0; i <= 17; i++)
 	{
-		printf("%dƒtƒŒ[ƒ€‚Ì%d“Š–ÚF", (i / 2 + 1), (i % 2 + 1));
+		printf("%dãƒ•ãƒ¬ãƒ¼ãƒ ã®%dæŠ•ç›®ï¼š", (i / 2 + 1), (i % 2 + 1));
 		scanf("%d", &inputScoreList[i]);
 
-		// ƒXƒgƒ‰ƒCƒN‚Ìê‡
+		// ã‚¹ãƒˆãƒ©ã‚¤ã‚¯ã®å ´åˆ
 		if (i % 2 == 0 && inputScoreList[i] == 10)
 		{
 			bowlingScoreList[i] = 'X';
 			bowlingScoreList[i + 1] = ' ';
 
-			// Ÿ‚ÌƒtƒŒ[ƒ€‚ÍƒXƒLƒbƒv
+			// æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã¯ã‚¹ã‚­ãƒƒãƒ—
 			i++;
 		}
 		
-		// ƒXƒyƒA‚Ìê‡
+		// ã‚¹ãƒšã‚¢ã®å ´åˆ
 		else if (i % 2 == 1 && (inputScoreList[i - 1] + inputScoreList[i] == 10))
 		{
 			bowlingScoreList[i] = '/';
 		}
 
-		// 2“Š–Ú‚Å‡Œv10‚ğ’´‚¦‚éê‡
+		// 2æŠ•ç›®ã§åˆè¨ˆ10ã‚’è¶…ãˆã‚‹å ´åˆ
 		else if (inputScoreList[i - 1] + inputScoreList[i] > 10)
 		{
-			puts("‚à‚¤ˆê“x“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+			puts("ã‚‚ã†ä¸€åº¦å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
 			i--;
 		}
 
-		// ƒXƒgƒ‰ƒCƒNˆÈŠO
+		// ã‚¹ãƒˆãƒ©ã‚¤ã‚¯ä»¥å¤–
 		else if (inputScoreList[i] >= 0 && inputScoreList[i] <= 9)
 		{
 			bowlingScoreList[i] = '0' + inputScoreList[i];
@@ -54,37 +49,37 @@ int main(void)
 
 		else
 		{
-			puts("0`10‚Ì”ÍˆÍ‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+			puts("0ï½10ã®ç¯„å›²ã§å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
 			i--;
 		}
 	}
 
-	// 10“Š–Ú‚Ì1A2“Š–Ú
+	// 10æŠ•ç›®ã®1ã€2æŠ•ç›®
 	for (int i = 18; i <= 19; i++)
 	{
-		printf("%dƒtƒŒ[ƒ€‚Ì%d“Š–ÚF", (i / 2 + 1), (i - 17));
+		printf("%dãƒ•ãƒ¬ãƒ¼ãƒ ã®%dæŠ•ç›®ï¼š", (i / 2 + 1), (i - 17));
 		scanf("%d", &inputScoreList[i]);
 
-		// ƒXƒgƒ‰ƒCƒN‚Ìê‡
+		// ã‚¹ãƒˆãƒ©ã‚¤ã‚¯ã®å ´åˆ
 		if (inputScoreList[i] == 10)
 		{
 			bowlingScoreList[i] = 'X';
 		}
 
-		// ƒXƒyƒA‚Ìê‡
+		// ã‚¹ãƒšã‚¢ã®å ´åˆ
 		else if (i % 2 == 1 && (inputScoreList[i - 1] + inputScoreList[i] == 10))
 		{
 			bowlingScoreList[i] = '/';
 		}
 
-		// 2“Š–Ú‚Å‡Œv10‚ğ’´‚¦‚éê‡
+		// 2æŠ•ç›®ã§åˆè¨ˆ10ã‚’è¶…ãˆã‚‹å ´åˆ
 		else if (i == 19 && inputScoreList[i - 1] + inputScoreList[i] > 10)
 		{
-			puts("‚à‚¤ˆê“x“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+			puts("ã‚‚ã†ä¸€åº¦å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
 			i--;
 		}
 
-		// ƒXƒgƒ‰ƒCƒNˆÈŠO
+		// ã‚¹ãƒˆãƒ©ã‚¤ã‚¯ä»¥å¤–
 		else if (inputScoreList[i] >= 0 && inputScoreList[i] <= 9)
 		{
 			bowlingScoreList[i] = '0' + inputScoreList[i];
@@ -92,39 +87,39 @@ int main(void)
 
 		else
 		{
-			puts("0`10‚Ì”ÍˆÍ‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+			puts("0ï½10ã®ç¯„å›²ã§å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
 			i--;
 		}
 	}
 
-	// 10“Š–Ú‚Ì3“Š–Ú
+	// 10æŠ•ç›®ã®3æŠ•ç›®
 	if (bowlingScoreList[18] == 'X' || bowlingScoreList[19] == '/')
 	{
 		do
 		{
-			printf("10ƒtƒŒ[ƒ€‚Ì3“Š–ÚF");
+			printf("10ãƒ•ãƒ¬ãƒ¼ãƒ ã®3æŠ•ç›®ï¼š");
 			scanf("%d", &inputScoreList[20]);
 
-			// ƒXƒgƒ‰ƒCƒN‚Ìê‡
+			// ã‚¹ãƒˆãƒ©ã‚¤ã‚¯ã®å ´åˆ
 			if (inputScoreList[20] == 10)
 			{
 				bowlingScoreList[20] = 'X';
 			}
 
-			// ƒXƒyƒA‚Ìê‡
+			// ã‚¹ãƒšã‚¢ã®å ´åˆ
 			else if ((inputScoreList[19] + inputScoreList[20] == 10))
 			{
 				bowlingScoreList[20] = '/';
 			}
 
-			// 2“Š–Ú‚Å‡Œv10‚ğ’´‚¦‚éê‡
+			// 2æŠ•ç›®ã§åˆè¨ˆ10ã‚’è¶…ãˆã‚‹å ´åˆ
 			else if (inputScoreList[19] + inputScoreList[20] > 10)
 			{
-				puts("‚à‚¤ˆê“x“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+				puts("ã‚‚ã†ä¸€åº¦å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
 				continue;
 			}
 
-			// ƒXƒgƒ‰ƒCƒNˆÈŠO
+			// ã‚¹ãƒˆãƒ©ã‚¤ã‚¯ä»¥å¤–
 			else if (inputScoreList[20] >= 0 && inputScoreList[20] <= 9)
 			{
 				bowlingScoreList[20] = '0' + inputScoreList[20];
@@ -132,7 +127,7 @@ int main(void)
 
 			else
 			{
-				puts("0`10‚Ì”ÍˆÍ‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+				puts("0ï½10ã®ç¯„å›²ã§å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
 				continue;
 			}
 
