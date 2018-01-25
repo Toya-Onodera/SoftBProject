@@ -3,9 +3,9 @@
 int main(void)
 {
 	// 必須課題
-	int matrixA[3][2] = { { 0, 0 }, { 0, 0 }, { 0, 0 } };
-	int matrixB[2][3] = { { 0, 0, 0 }, { 0, 0, 0 } };
-	int matrixTrue[3][3] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+	int matrixA[3][2] = { 0 };
+	int matrixB[2][3] = { 0 };
+	int matrixTrue[3][3] = { 0 };
 	
 	puts("選択課題");
 	printf("行列Aの要素を入力してください\n");
