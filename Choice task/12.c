@@ -196,17 +196,20 @@ int bowlingScoreCalc(int n, int count)
 		if (bowlingScoreList[n] == 'X')
 		{
 			// スペアのあとにストライクをとった場合
-			if (count == -1) {
+			if (count == -1)
+			{
 				return 10;
 			}
 
 			// ストライク 1回目
-			else if (count == 1) {
+			else if (count == 1)
+			{
 				return 10 + bowlingScoreCalc(n + 2, count + 1) + bowlingScoreCalc(n + 3, count + 1);
 			}
 
 			// ストライク 2回目
-			else if (count == 2) {
+			else if (count == 2)
+			{
 				return 10 + bowlingScoreCalc(n + 1, count + 1) + bowlingScoreCalc(n + 2, count + 1);
 			}
 
