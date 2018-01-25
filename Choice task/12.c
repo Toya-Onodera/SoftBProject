@@ -1,12 +1,23 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+// プロトタイプ宣言
+int bowlingScoreCalc(int, int);
+
+/***** グローバル変数 *****/
+// 文字列でスコアを格納する
+// 0 ~ 9, / (スペア), X(ストライク)
+char bowlingScoreList[21] = { '\0' };
+
+// 整数値でスコアを入力させる
+int inputScoreList[21] = { 0 };
 
 int main(void)
 {
-	// ボウリングのスコアを格納する関数
-	// 文字列で格納させる
-	// 0 ~ 9, / (スペア), X(ストライク)
-	char bowlingScoreList[21] = { '\0' };
-	int inputScoreList[21] = { 0 };
+	// スコアの合計を格納する変数
+	int totalScore = 0;
 
 	puts("/*************** ボウリングのスコア計算 ***************/");
 	puts("「0」, 「1」, 「2」, 「3」, 「4」, 「5」, 「6」, 「7」, 「8」, 「9」, 「10」");
@@ -35,7 +46,7 @@ int main(void)
 		}
 
 		// 2投目で合計10を超える場合
-		else if (inputScoreList[i - 1] + inputScoreList[i] > 10)
+		else if (i % 2 == 1 && (inputScoreList[i - 1] + inputScoreList[i]) > 10)
 		{
 			puts("もう一度入力してください。");
 			i--;
@@ -67,7 +78,7 @@ int main(void)
 		}
 
 		// スペアの場合
-		else if (i % 2 == 1 && (inputScoreList[i - 1] + inputScoreList[i] == 10))
+		else if (i == 19 && (inputScoreList[i - 1] + inputScoreList[i] == 10))
 		{
 			bowlingScoreList[i] = '/';
 		}
@@ -107,13 +118,13 @@ int main(void)
 			}
 
 			// スペアの場合
-			else if ((inputScoreList[19] + inputScoreList[20] == 10))
+			else if (inputScoreList[18] == 10 && (inputScoreList[19] + inputScoreList[20] == 10))
 			{
 				bowlingScoreList[20] = '/';
 			}
 
 			// 2投目で合計10を超える場合
-			else if (inputScoreList[19] + inputScoreList[20] > 10)
+			else if (bowlingScoreList[19] != 'X' && (inputScoreList[19] + inputScoreList[20]) > 10)
 			{
 				puts("もう一度入力してください。");
 				continue;
@@ -134,6 +145,19 @@ int main(void)
 		} while (0);
 	}
 
+	// 実際にスコアを計算する
+	// 再帰も使用
+	for (int i = 0; i <= 20; i++)
+	{
+		// 10フレーム目3投目に対応
+		if (bowlingScoreList[i] != '\0')
+		{
+			totalScore += bowlingScoreCalc(i, 1);
+			printf("%d\n", totalScore);
+		}
+	}
+
+	// 表示
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j <= 20; j++)
@@ -160,5 +184,62 @@ int main(void)
 		printf("\n");
 	}
 
+	printf("\nトータルスコア：%d点\n", totalScore);
+
 	return 0;
+}
+
+// ボウリングのスコアを計算する関数
+int bowlingScoreCalc(int n, int count)
+{
+	// 9フレーム目まで
+	if (n <= 17)
+	{
+		// ストライク
+		if (bowlingScoreList[n] == 'X')
+		{
+			// スペアのあとにストライクをとった場合
+			if (count == -1)
+			{
+				return 10;
+			}
+
+			// ストライク 1回目
+			else if (count == 1)
+			{
+				return 10 + bowlingScoreCalc(n + 2, count + 1) + bowlingScoreCalc(n + 3, count + 1);
+			}
+
+			// ストライク 2回目
+			else if (count == 2)
+			{
+				return 10 + bowlingScoreCalc(n + 1, count + 1) + bowlingScoreCalc(n + 2, count + 1);
+			}
+
+			// ストライク 3回目以降
+			else
+			{
+				return bowlingScoreCalc(n + 1, count + 1) + bowlingScoreCalc(n + 2, count + 1);
+			}
+		}
+
+		// スペア
+		else if (bowlingScoreList[n] == '/')
+		{
+			// スペアするときに倒した本数 + (n+1)フレーム1投目のスコア
+			return inputScoreList[n] + bowlingScoreCalc(n + 1, -1);
+		}
+
+		// それ以外
+		else
+		{
+			return inputScoreList[n];
+		}
+	}
+
+	// 10フレーム目
+	else
+	{
+		return inputScoreList[n];
+	}
 }
