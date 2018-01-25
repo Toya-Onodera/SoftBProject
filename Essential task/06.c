@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 int main(void)
 {
 	// 必須課題1
