@@ -152,7 +152,6 @@ int main(void)
 		if (bowlingScoreList[i] != '\0')
 		{
 			totalScore += bowlingScoreCalc(i, 1);
-			printf("%d\n", totalScore);
 		}
 	}
 
