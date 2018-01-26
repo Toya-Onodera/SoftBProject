@@ -114,17 +114,17 @@ int main(void)
 				bowlingScoreList[20] = '/';
 			}
 
+			// ストライクの場合
+			else if (inputScoreList[20] == 10)
+			{
+				bowlingScoreList[20] = 'X';
+			}
+
 			// 2投目で合計10を超える場合
 			else if (bowlingScoreList[19] != 'X' && (inputScoreList[19] + inputScoreList[20]) > 10)
 			{
 				puts("もう一度入力してください。");
 				continue;
-			}
-
-			// ストライクの場合
-			else if (inputScoreList[20] == 10)
-			{
-				bowlingScoreList[20] = 'X';
 			}
 
 			// ストライク以外
@@ -152,6 +152,7 @@ int main(void)
 		if (bowlingScoreList[i] != '\0')
 		{
 			totalScore += bowlingScoreCalc(i, 1);
+			printf("%d\n", totalScore);
 		}
 	}
 
@@ -186,7 +187,7 @@ int main(void)
 				{
 					printf(" --");
 				}
-					
+
 				else
 				{
 					printf("%3c", bowlingScoreList[j]);
@@ -226,7 +227,7 @@ int bowlingScoreCalc(int n, int count)
 			// ストライク 2回目
 			else if (count == 2)
 			{
-				return 10 + bowlingScoreCalc(n + 1, count + 1) + bowlingScoreCalc(n + 2, count + 1);
+				return 10 + bowlingScoreCalc(n + 2, count + 1)/* + bowlingScoreCalc(n + 2, count + 1)*/;
 			}
 
 			// ストライク 3回目以降
@@ -237,7 +238,7 @@ int bowlingScoreCalc(int n, int count)
 		}
 
 		// スペア
-		else if (bowlingScoreList[n] == '/')
+		else if (bowlingScoreList[n] == '/' && count == 1)
 		{
 			// スペアするときに倒した本数 + (n+1)フレーム1投目のスコア
 			return inputScoreList[n] + bowlingScoreCalc(n + 1, -1);
