@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 // プロトタイプ宣言
-void sort(int, int);
+void sort(int *, int);
 
 int main(void)
 {
