@@ -42,7 +42,7 @@ void sort(int vList[], int num)
 	// ソートを行う
 	for (int i = 0; i < num; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < i; j++)
 		{
 			if (vList[i] < vList[j])
 			{
